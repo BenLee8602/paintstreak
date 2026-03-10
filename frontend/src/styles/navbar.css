@@ -1,0 +1,51 @@
+:root {
+    --navbar-link-padding: 2rem;
+}
+
+.navbar {
+    position: sticky;
+    top: 0;
+    width: 100%;
+    background-color: var(--color-darkest);
+}
+
+.navbar .main-content {
+    display: flex;
+    height: 3.5rem;
+}
+
+.navbar ul {
+    display: flex;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+
+.navbar li {
+    display: flex;
+}
+
+.navbar a {
+    display: flex;
+    align-items: center;
+    color: var(--color-bright);
+    text-decoration: none;
+}
+
+.navbar .title {
+    font-size: var(--font-size-xl);
+    padding-right: var(--navbar-link-padding);
+}
+
+.navbar .right {
+    margin-left: auto;
+}
+
+.navbar .left a {
+    padding-right: var(--navbar-link-padding);
+}
+
+.navbar .right a {
+    padding-left: var(--navbar-link-padding);
+}
+

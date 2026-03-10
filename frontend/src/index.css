@@ -1,0 +1,177 @@
+:root {
+    --max-content-width: 1200px;
+
+    --font-size-xxs: 0.5rem;
+    --font-size-xs:  0.75rem;
+    --font-size-s:   0.875rem;
+    --font-size-m:   1rem;
+    --font-size-l:   1.25rem;
+    --font-size-xl:  1.5rem;
+    --font-size-xxl: 2rem;
+
+    --color-darkish: rgb(64, 64, 64);
+    --color-dark:    rgb(48, 48, 48);
+    --color-darker:  rgb(32, 32, 32);
+    --color-darkest: rgb(16, 16, 16);
+
+    --color-brightish: rgb(223, 223, 223);
+    --color-bright:    rgb(231, 231, 231);
+    --color-brighter:  rgb(239, 239, 239);
+    --color-brightest: rgb(247, 247, 247);
+
+    --color-main:      rgb(200,  0, 150);
+    --color-main-dark: rgb(150,  0, 113);
+    --color-main-pale: rgb(200, 50, 150);
+    --color-main-dkpl: rgb(150, 50, 113);
+
+    --color-error: rgb(225,  25, 25);
+    --color-warn:  rgb(225, 150, 25);
+
+    --border-radius: 0.5rem;
+}
+
+
+.xxs {
+    font-size: var(--font-size-xxs);
+}
+
+.xs {
+    font-size: var(--font-size-xs);
+}
+
+.s {
+    font-size: var(--font-size-s);
+}
+
+.m {
+    font-size: var(--font-size-m);
+}
+
+.l {
+    font-size: var(--font-size-l);
+}
+
+.xl {
+    font-size: var(--font-size-xl);
+}
+
+.xxl {
+    font-size: var(--font-size-xxl);
+}
+
+
+.bg-darkish {
+    background-color: var(--color-darkish);
+}
+
+.bg-dark {
+    background-color: var(--color-dark);
+}
+
+.bg-darker {
+    background-color: var(--color-darker);
+}
+
+.bg-darkest {
+    background-color: var(--color-darkest);
+}
+
+
+.fg-darkish {
+    color: var(--color-darkish);
+}
+
+.fg-dark {
+    color: var(--color-dark);
+}
+
+.fg-darker {
+    color: var(--color-darker);
+}
+
+.fg-darkest {
+    color: var(--color-darkest);
+}
+
+
+.bg-brightish {
+    background-color: var(--color-brightish);
+}
+
+.bg-bright {
+    background-color: var(--color-bright);
+}
+
+.bg-brighter {
+    background-color: var(--color-brighter);
+}
+
+.bg-brightest {
+    background-color: var(--color-brightest);
+}
+
+
+.fg-brightish {
+    color: var(--color-brightish);
+}
+
+.fg-bright {
+    color: var(--color-bright);
+}
+
+.fg-brighter {
+    color: var(--color-brighter);
+}
+
+.fg-brightest {
+    color: var(--color-brightest);
+}
+
+
+.bg-main {
+    background-color: var(--color-main);
+}
+
+.bg-main-dark {
+    background-color: var(--color-main-dark);
+}
+
+.bg-main-pale {
+    background-color: var(--color-main-pale);
+}
+
+.bg-main-dkpl {
+    background-color: var(--color-main-dkpl);
+}
+
+
+.fg-main {
+    color: var(--color-main);
+}
+
+.fg-main-dark {
+    color: var(--color-main-dark);
+}
+
+.fg-main-pale {
+    color: var(--color-main-pale);
+}
+
+.fg-main-dkpl {
+    color: var(--color-main-dkpl);
+}
+
+
+.main-content {
+    max-width: var(--max-content-width);
+    margin: auto;
+    padding: 0 1rem;
+}
+
+
+body {
+    margin: 0;
+    font-family: Veranda, sans-serif;
+    background-color: var(--color-darker);
+}
+
