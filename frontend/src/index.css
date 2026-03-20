@@ -8,6 +8,7 @@
     --font-size-l:   1.25rem;
     --font-size-xl:  1.5rem;
     --font-size-xxl: 2rem;
+    --font-size-3xl: 2.5rem;
 
     --color-darkish: rgb(64, 64, 64);
     --color-dark:    rgb(48, 48, 48);
@@ -27,7 +28,7 @@
     --color-error: rgb(225,  25, 25);
     --color-warn:  rgb(225, 150, 25);
 
-    --border-radius: 0.5rem;
+    --border-radius: 0.25rem;
 }
 
 
@@ -173,5 +174,60 @@ body {
     margin: 0;
     font-family: Veranda, sans-serif;
     background-color: var(--color-darker);
+}
+
+
+.form-wrapper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100%;
+}
+
+.form {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    max-width: 400px;
+}
+
+label {
+    margin-bottom: var(--font-size-xxs);
+    color: var(--color-bright);
+    font-size: var(--font-size-s);
+}
+
+input {
+    height: var(--font-size-3xl);
+    border: 0;
+    border-radius: var(--border-radius);
+    outline: 1px solid var(--color-brightish);
+    margin-bottom: var(--font-size-s);
+    padding-left: var(--font-size-xs);
+    font-size: var(--font-size-m);
+    color: var(--color-bright);
+    background-color: var(--color-darker);
+}
+
+input:hover {
+    outline: 1px solid var(--color-main-dkpl);
+}
+
+input:focus {
+    outline: 2px solid var(--color-main);
+}
+
+button {
+    height: var(--font-size-3xl);
+    border: 0;
+    border-radius: var(--border-radius);
+    padding: 0;
+    font-size: var(--font-size-m);
+    color: var(--color-bright);
+    background-color: var(--color-main);
+}
+
+button:hover {
+    background-color: var(--color-main-dark);
 }
 
