@@ -1,12 +1,13 @@
 CREATE TABLE users (
-    username VARCHAR(255) PRIMARY KEY,
-    email VARCHAR(255) NOT NULL
+    userid int PRIMARY KEY GENERATED ALWAYS AS IDENTITY,
+    username VARCHAR(255) UNIQUE NOT NULL,
+    password VARCHAR(255) NOT NULL
 );
 
-INSERT INTO users (username, email)
+INSERT INTO users (username, password)
 VALUES
-('ben1', 'ben1@example.com'),
-('ben2', 'ben2@example.com'),
-('ben3', 'ben3@example.com'),
-('ben4', 'ben4@example.com');
+('ben1', 'password'),
+('ben2', 'abc123'),
+('ben3', 'secret'),
+('ben4', 'supersecret');
 

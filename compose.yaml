@@ -9,12 +9,18 @@ services:
       POSTGRES_PASSWORD: pass
     volumes:
       - ./db:/docker-entrypoint-initdb.d
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -d paintstreakdb -U user"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
 
   backend:
     image: "paintstreak-backend:dev"
     build: backend
     depends_on:
-      - db
+      db:
+        condition: service_healthy
     ports:
       - "8000:8000"
     develop:
