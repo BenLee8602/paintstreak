@@ -1,0 +1,4 @@
+CREATE TABLE tokens (
+    token VARCHAR(255) PRIMARY KEY
+);
+

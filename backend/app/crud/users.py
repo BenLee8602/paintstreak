@@ -16,8 +16,13 @@ async def create_user(db: AsyncSession, user: UserCreate) -> User:
     return db_user
 
 
-async def read_user(db: AsyncSession, userid: int):
+async def read_user_id(db: AsyncSession, userid: int):
     stmt = select(User).where(User.userid == userid)
+    res = await db.execute(stmt)
+    return res.scalar_one_or_none()
+
+async def read_user_name(db: AsyncSession, username: str):
+    stmt = select(User).where(User.username == username)
     res = await db.execute(stmt)
     return res.scalar_one_or_none()
 
