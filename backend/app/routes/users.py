@@ -16,9 +16,9 @@ async def register(db: db_dep, user: UserCreate):
         raise HTTPException(status_code=409, detail="user exists")
 
     user.password = auth.hash_pw(user.password)
-    await usercrud.create_user(db, user)
+    db_user: User = await usercrud.create_user(db, user)
 
-    token: str = auth.create_refresh_token(user.username)
+    token: str = auth.create_refresh_token(db_user.userid)
     await tokencrud.create_token(db, token)
 
     return token
@@ -33,15 +33,23 @@ async def login(db: db_dep, cred: UserCreate):
     if not auth.check_pw(cred.password, user.password):
         raise HTTPException(status_code=401, detail="incorrect password")
 
-    token: str = auth.create_refresh_token(user.username)
+    token: str = auth.create_refresh_token(user.userid)
     await tokencrud.create_token(db, token)
 
     return token
 
 
+@users_router.put("/whoami", response_model=UserRead)
+async def whoami(db: db_dep, user: auth.login_req):
+    db_user: User | None = await usercrud.read_user_id(db, user)
+    if not db_user:
+        raise HTTPException(status_code=401, detail="user not found")
+    return db_user
+
+
 @users_router.put("/refresh", response_model=str)
 async def refresh(db: db_dep, rt: Token):
-    user: str = auth.verify_refresh_token(rt.token)
+    user: int | None = auth.verify_refresh_token(rt.token)
     db_token: bool = await tokencrud.token_exists(db, rt.token)
     if not user or not db_token:
         raise HTTPException(status_code=401, detail="invalid token")
@@ -56,12 +64,6 @@ async def logout(db: db_dep, rt: Token):
     return "logged out"
 
 
-@users_router.post("/", response_model=UserRead)
-async def create_user(db: db_dep, user: UserCreate):
-    # check for duplicate user
-    return await usercrud.create_user(db, user)
-
-
 @users_router.get("/", response_model=list[UserRead])
 async def read_users(db: db_dep):
     return await usercrud.read_users(db)
@@ -73,14 +75,4 @@ async def read_user(db: db_dep, userid: int):
     if not res:
         raise HTTPException(status_code=404, detail="user not found")
     return res
-
-
-@users_router.put("/", response_model=str)
-async def update_user(db: db_dep, user: auth.login_req):
-    return user
-
-
-@users_router.delete("/", response_model=str)
-async def delete_user(db: db_dep, user: auth.login_req):
-    return user
 

@@ -1,20 +1,9 @@
 import { useAuth } from "../auth/useAuth";
 
 function Home() {
-    const { user, authFetch } = useAuth();
+    const { user } = useAuth();
 
-    const aaa = async () => {
-        const res = await authFetch("/api/users/", {
-            method: "PUT"
-        });
-        console.log(await res.json());
-    };
-
-    if (!user) return <>no user</>;
-    return <>
-        <p>{ user }</p>
-        <button onClick={aaa}>aaa</button>
-    </>;
+    return <p>{ user ? user : "no user" }</p>;
 }
 
 export default Home;

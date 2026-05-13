@@ -5,17 +5,15 @@ import auth from "./auth";
 function AuthProvider({ children }) {
     const [user, setUser] = useState(null);
 
-    useEffect(() => {
+    useEffect(() => { (async () => {
         const token = localStorage.getItem("refreshToken");
         if (!token) return;
-        const payload = JSON.parse(atob(token.split('.')[1]));
-        setUser(payload.sub);
-    }, []);
+        const res = await auth.authFetch("/api/users/whoami", { method: "PUT" });
+        if (res.status !== 200) return;
+        const body = await res.json();
+        setUser(body.username);
+    })(); }, []);
 
-
-    const authFetch = (url: string, req: RequestInit) => {
-        return user ? auth.authFetch(url, req) : fetch(url, req);
-    };
 
     const register = async (name: string, pass: string) => {
         if (user) throw new Error("cant register while logged in");
@@ -38,7 +36,13 @@ function AuthProvider({ children }) {
     };
 
 
-    const value = { user, authFetch, register, login, logout };
+    const value = {
+        user,
+        authFetch: auth.authFetch,
+        register,
+        login,
+        logout
+    };
 
     return <AuthContext value={value}>
         {children}

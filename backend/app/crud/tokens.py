@@ -1,9 +1,16 @@
+import jwt
+from datetime import datetime
 from sqlalchemy import select
 from sqlalchemy.ext.asyncio import AsyncSession
 from app.models.token import Token
 
 async def create_token(db: AsyncSession, token: str) -> None:
-    db_token: Token = Token(token=token)
+    payload: dict = jwt.decode(token, options={"verify_signature": False})
+    db_token: Token = Token(
+        token=token,
+        userid=int(payload["sub"]),
+        expires=datetime.fromtimestamp(int(payload["exp"]))
+    )
     db.add(db_token)
     await db.commit()
 
