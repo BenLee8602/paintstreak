@@ -12,7 +12,6 @@ class UserRead(BaseModel):
 
 class UserUpdate(BaseModel):
     username: Username | None = None
-    password: Password | None = None
 
 class Token(BaseModel):
     token: str

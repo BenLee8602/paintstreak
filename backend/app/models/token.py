@@ -11,7 +11,7 @@ class Token(Base):
         primary_key=True)
     userid: Mapped[int] = mapped_column(
         Integer,
-        ForeignKey("users.userid"),
+        ForeignKey("users.userid", ondelete="CASCADE"),
         nullable=False)
     expires: Mapped[datetime] = mapped_column(
         DateTime,

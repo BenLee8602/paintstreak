@@ -33,7 +33,7 @@ async def read_users(db: AsyncSession):
 
 
 async def update_user(db: AsyncSession, userid: int, user: UserUpdate) -> User:
-    db_user: User = await read_user(db, userid)
+    db_user: User = await read_user_id(db, userid)
     if not db_user:
         return None
 
@@ -46,7 +46,7 @@ async def update_user(db: AsyncSession, userid: int, user: UserUpdate) -> User:
 
 
 async def delete_user(db: AsyncSession, userid: int) -> bool:
-    db_user: User = await read_user(db, userid)
+    db_user: User = await read_user_id(db, userid)
     if not db_user:
         return False
 

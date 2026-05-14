@@ -76,3 +76,21 @@ async def read_user(db: db_dep, userid: int):
         raise HTTPException(status_code=404, detail="user not found")
     return res
 
+
+@users_router.put("/", response_model=UserRead)
+async def edit_user(db: db_dep, user: auth.login_req, data: UserUpdate):
+    if data.username and await usercrud.read_user_name(db, data.username):
+        raise HTTPException(status_code=409, detail="user exists")
+
+    res: User | None = await usercrud.update_user(db, user, data)
+    if not res:
+        raise HTTPException(status_code=404, detail="user not found")
+    return res
+
+
+@users_router.delete("/")
+async def delete_user(db: db_dep, user: auth.login_req):
+    if not await usercrud.delete_user(db, user):
+        raise HTTPException(status_code=404, detail="user not found")
+    return { "ok": True }
+
