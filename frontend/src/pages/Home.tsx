@@ -22,7 +22,8 @@ function Home() {
         console.log(res.status);
     };
 
-    if (!user) return <p>no user</p>;
+    if (user === undefined) return <></>;
+    if (user === null) return <p>no user</p>;
     return <>
         <p>{ user }</p>
         <input onChange={e => setName(e.target.value)}/>

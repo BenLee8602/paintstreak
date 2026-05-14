@@ -12,9 +12,10 @@ function Navbar() {
                 <li><Link to="/">Home</Link></li>
             </ul>
             <ul className="right">
-                { user ? <>
+                { user && (
                     <li><Link to="/login" onClick={logout}>Logout</Link></li>
-                </> : <>
+                ) }
+                { user === null && <>
                     <li><Link to="/login">Login</Link></li>
                     <li><Link to="/register">Register</Link></li>
                 </> }
