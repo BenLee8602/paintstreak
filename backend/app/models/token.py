@@ -14,6 +14,6 @@ class Token(Base):
         ForeignKey("users.userid", ondelete="CASCADE"),
         nullable=False)
     expires: Mapped[datetime] = mapped_column(
-        DateTime,
+        DateTime(timezone=True),
         nullable=False)
 

@@ -1,6 +1,8 @@
 import os
 from typing import Annotated
 from datetime import datetime, timezone, timedelta
+import hashlib
+import secrets
 import bcrypt
 import jwt
 from fastapi import Depends, HTTPException
@@ -19,13 +21,12 @@ def check_pw(pw: str, pw_hash: str) -> bool:
     return bcrypt.checkpw(pw_bytes, pw_hash_bytes)
 
 
-def create_refresh_token(user: int) -> str:
-    payload: dict = {
-        "sub": str(user),
-        "exp": datetime.now(timezone.utc) + timedelta(days=90)
-    }
-    secret: str = os.environ["REFRESH_TOKEN_SECRET"]
-    return jwt.encode(payload, secret, algorithm="HS256")
+def create_refresh_token() -> str:
+    return secrets.token_urlsafe(64)
+
+def hash_refresh_token(token: str) -> str:
+    return hashlib.sha256(token.encode("utf-8")).hexdigest()
+
 
 def create_access_token(user: int) -> str:
     payload: dict = {
@@ -35,21 +36,13 @@ def create_access_token(user: int) -> str:
     secret: str = os.environ["ACCESS_TOKEN_SECRET"]
     return jwt.encode(payload, secret, algorithm="HS256")
 
-
-def _verify_token(token: str, secret: str) -> int | None:
+def verify_access_token(token: str) -> int | None:
+    secret: str = os.environ["ACCESS_TOKEN_SECRET"]
     try:
         payload: dict = jwt.decode(token, secret, algorithms=["HS256"])
         return int(payload["sub"])
     except jwt.PyJWTError:
         return None
-
-def verify_refresh_token(token: str) -> int | None:
-    secret: str = os.environ["REFRESH_TOKEN_SECRET"]
-    return _verify_token(token, secret)
-
-def verify_access_token(token: str) -> int | None:
-    secret: str = os.environ["ACCESS_TOKEN_SECRET"]
-    return _verify_token(token, secret)
 
 
 oauth2_scheme = OAuth2PasswordBearer(tokenUrl="login")

@@ -24,7 +24,6 @@ services:
     ports:
       - "8000:8000"
     environment:
-      REFRESH_TOKEN_SECRET: refresh-token-secret
       ACCESS_TOKEN_SECRET: access-token-secret
     develop:
       watch:
